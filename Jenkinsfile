@@ -17,7 +17,7 @@ pipeline {
                 }
             }
             steps {
-                slackSend channel: '#jenkins-builds', // Adds the target Slack channel name
+                slackSend channel: '#genreal', // Adds the target Slack channel name
                           message: "Build for job ${env.JOB_NAME} has started - (<${env.BUILD_URL}|Open>)"
             }
         }
@@ -56,7 +56,7 @@ pipeline {
 
     post {
         always {
-            slackSend channel: '#jenkins-builds',
+            slackSend channel: '#general',
                       color: "${currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger'}",
                       message: "Build for job ${env.JOB_NAME} finished with status ${currentBuild.currentResult} - (<${env.BUILD_URL}|Open>)"
         }
