@@ -16,12 +16,12 @@ pipeline {
                     branch 'develop'
                 }
             }
-            steps {
-                slackSend channel: '#genreal', // Adds the target Slack channel name
+         steps {
+                slackSend channel: '#general',
                           message: "Build for job ${env.JOB_NAME} has started - (<${env.BUILD_URL}|Open>)"
             }
         }
-        stage('Scan for secrets') {
+       stage('Scan for secrets') {
             steps {
                 sh '''
                     curl -LO https://github.com/zricethezav/gitleaks/releases/download/v8.9.0/gitleaks_8.9.0_linux_x64.tar.gz
@@ -53,8 +53,7 @@ pipeline {
             }
         }
     }
-
-    post {
+ post {
         always {
             slackSend channel: '#general',
                       color: "${currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger'}",
